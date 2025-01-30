@@ -1,0 +1,14 @@
+
+    vorlage = ""
+    if (zielformat == "context") then
+	for line in io.lines("inventar.tex") do 
+		vorlage = vorlage .. line .. "\n"
+	end
+    elseif (zielformat == "html5") then
+	for line in io.lines("inventar.html") do 
+		vorlage = vorlage .. line .. "\n"
+	end
+    end
+
+    out = sachverhalt .. aufgaben .. lustache:render(vorlage, OutputData)
+

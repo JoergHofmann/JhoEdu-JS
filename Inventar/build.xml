@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="jho-inventar" default="main">
+
+	<target name="main" unless="done">
+		<echo message="Jetzt geht's los." />
+		<echo message="${user.home}" />
+		<copy todir="${user.home}/.local/lib">
+			<fileset dir="." includes="*.lua" />
+		</copy>
+		<property name="done" value="done" />
+	</target>
+
+	<target name="test" unless="done">
+	        <mkdir dir="0_OUT/css" />
+	        <copy todir="0_OUT/css" overwrite="true">
+			<fileset dir="css" includes="*.css" />
+		</copy>
+		<exec executable="ypp" output="0_TMP/index.md">
+			<arg line="-l jhomarkup.lua -l html5.lua -l inventar.lua index.md" />
+		</exec>
+	        <exec executable="pandoc" dir="0_TMP/">
+                    <arg line="--mathjax --css=css/sortable3.css index.md -s -t html -o index.html" />
+                </exec>
+                <copy file="0_TMP/index.html" tofile="0_OUT/index.html" />
+		<property name="done" value="done" />
+	</target>
+
+	<target name="test-old" unless="done">
+		<exec executable="ypp" output="0_TMP/index.md">
+			<arg line="-l jhomarkup.lua -l html5.lua -l inventar.lua index.md" />
+		</exec>
+	        <exec executable="pandoc" dir="0_TMP/">
+                    <arg line="--mathjax index.md -t html -o index.html" />
+                </exec>
+                <copy file="0_TMP/index.html" tofile="0_OUT/index.html" />
+		<property name="done" value="done" />
+	</target>
+</project>
