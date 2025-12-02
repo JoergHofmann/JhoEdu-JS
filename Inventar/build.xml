@@ -8,10 +8,10 @@
 		<copy todir="${user.home}/.local/lib">
 			<fileset dir="." includes="*.lua" />
 		</copy>
-		<property name="done" value="done" />
 	</target>
 
-	<target name="test" unless="done">
+	<target name="test" depends="main"  unless="done">
+		<echo message="TARGET 'test'"/>
 	        <mkdir dir="0_OUT/css" />
 	        <copy todir="0_OUT/css" overwrite="true">
 			<fileset dir="css" includes="*.css" />
@@ -27,6 +27,7 @@
 	</target>
 
 	<target name="test-old" unless="done">
+		<echo message="TARGET 'testi-old'"/>
 		<exec executable="ypp" output="0_TMP/index.md">
 			<arg line="-l jhomarkup.lua -l html5.lua -l inventar.lua index.md" />
 		</exec>

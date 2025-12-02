@@ -1,7 +1,7 @@
 # Test - Inventar 
 @(Autor.name)<br />
 @(Autor.mail)
-
+@(Projekt.title)
 
 ## Sachverhalt
 
